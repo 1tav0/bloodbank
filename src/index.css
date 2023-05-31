@@ -36,7 +36,7 @@ input{
 
 input:focus{
   outline: none !important;
-  box-shadow: none imo !important;
+  box-shadow: none !important;
 }
 
 .ant-form-item{
@@ -45,5 +45,5 @@ input:focus{
 
 a:hover{
   text-decoration: underline !important;
-  color: #6a6a6a;
+  color: #6a6a6a !important;
 }
