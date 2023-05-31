@@ -24,6 +24,9 @@ const OrgHospitalForm = ({type}) => (
         <Form.Item name="password" label="Password">
             <Input />
         </Form.Item>
+        <Form.Item name="address" label="Address" className='col-span-2'>
+            <Input />
+        </Form.Item>
     </>
 )
 
