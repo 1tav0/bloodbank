@@ -6,11 +6,15 @@ import OrgHospitalForm from './OrgHospitalForm';
 const Register = () => {
   const [type, setType] = useState("1tav0");
 
+  const onFinish = (values) => {
+    console.log(values);
+  }
   return (
     <div className='flex h-screen items-center justify-center bg-primary'>
        <Form
             layout='vertical'
-            className="bg-white rounded shadow grid grid-cols-2 p-5 gap-5 w-1/2"
+        className="bg-white rounded shadow grid grid-cols-2 p-5 gap-5 w-1/2"
+        onFinish={onFinish}
         >
             <h1 className="col-span-2 uppercase text-2xl">
                   <span className="text-primary">
@@ -33,17 +37,17 @@ const Register = () => {
               && 
               (
                 <>
-                  <Form.Item label="Name">
+                  <Form.Item label="Name" name="name">
                     <Input />
                   </Form.Item>
-                  <Form.Item label="Email">
+                  <Form.Item label="Email" name="email">
                       <Input />
                   </Form.Item>
-                  <Form.Item label="Phone">
+                  <Form.Item label="Phone" name="phone">
                     <Input />
                   </Form.Item>
-                  <Form.Item label="Password">
-                      <Input />
+                  <Form.Item label="Password" name="password">
+                      <Input type="password"/>
                   </Form.Item>
                 </>
               ) 
@@ -55,7 +59,7 @@ const Register = () => {
                 <OrgHospitalForm type={type} />
               )
             }
-            <Button type='primary' block className='col-span-2'>
+            <Button type='primary' block className='col-span-2' htmlType="submit">
                 Register
             </Button>
             
