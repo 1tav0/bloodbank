@@ -31,27 +31,14 @@ const Login = () => {
               <Radio value="hospital">Hospital</Radio>
               <Radio value="organization">Organization</Radio>
             </Radio.Group>
-            
-            {
-              type === "1tav0" 
-              && 
-              (
-                <>
-                  <Form.Item label="Name" name="name">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Email" name="email">
-                      <Input />
-                  </Form.Item>
-                  <Form.Item label="Phone" name="phone">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Password" name="password">
-                      <Input type="password"/>
-                  </Form.Item>
-                </>
-              ) 
-            }
+          
+            <Form.Item label="Email" name="email">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Password" name="password">
+              <Input type="password"/>
+            </Form.Item>
+      
             <Button type='primary' block className='col-span-2' htmlType="submit">
                 Login
             </Button>
