@@ -4,7 +4,7 @@
 @import 'tailwindcss/utilities';
 
 *{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif !important;
   padding: 0;
   margin: 0;                 
 }
