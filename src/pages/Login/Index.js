@@ -13,7 +13,7 @@ const Login = () => {
     <div className='flex h-screen items-center justify-center bg-primary'>
        <Form
             layout='vertical'
-        className="bg-white rounded shadow grid grid p-5 gap-5 w-1/3"
+        className="bg-white rounded shadow grid p-5 gap-5 w-1/3"
         onFinish={onFinish}
         >
             <h1 className="uppercase text-2xl">
@@ -25,7 +25,7 @@ const Login = () => {
             
             <Radio.Group onChange={(e) => setType(e.target.value)} 
               value={type}
-              className='col-span-2'
+              className=''
             >
               <Radio value="1tav0">1tav0</Radio>
               <Radio value="hospital">Hospital</Radio>
@@ -39,11 +39,11 @@ const Login = () => {
               <Input type="password"/>
             </Form.Item>
       
-            <Button type='primary' block className='col-span-2' htmlType="submit">
+            <Button type='primary' block className='' htmlType="submit">
                 Login
             </Button>
             
-            <Link to='/login' className='col-span-2 text-center'>
+            <Link to='/login' className=' text-center'>
                 Don't have an account ? Register
             </Link>
        </Form>
