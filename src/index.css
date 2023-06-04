@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+*{
+  font-family: 'Montserrat', sans-serif !important;
+  padding: 0;
+  margin: 0;                 
+}
+/* to overide antd button styles */
+button{
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  height: 40px !important;
+}
+
+/* Using tailwind css */
+/* .app{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: blueviolet;
+}
+
+.project__title{
+  color: white;
+} */
+
+input, textarea{
+  min-height: 40px !important;
+  border: 1px solid #6a6a6a !important;
+  border-radius: 2px !important;
+}
+
+input:focus, textarea:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ant-form-item{
+  margin-bottom: 0 !important;
+}
+
+a:hover{
+  text-decoration: underline !important;
+  color: #6a6a6a !important;
+}
