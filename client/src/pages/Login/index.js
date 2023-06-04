@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 const Login = () => {
-  const [type, setType] = useState("1tav0");
+  const [type, setType] = useState("Donar");
 
   const onFinish = (values) => {
     console.log(values);
@@ -27,7 +27,7 @@ const Login = () => {
               value={type}
               className=''
             >
-              <Radio value="1tav0">1tav0</Radio>
+              <Radio value="donar">Donar</Radio>
               <Radio value="hospital">Hospital</Radio>
               <Radio value="organization">Organization</Radio>
             </Radio.Group>

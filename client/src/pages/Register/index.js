@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import OrgHospitalForm from './OrgHospitalForm';
 
 const Register = () => {
-  const [type, setType] = useState("1tav0");
+  const [type, setType] = useState("donar");
 
   const onFinish = (values) => {
     console.log(values);
@@ -27,13 +27,13 @@ const Register = () => {
               value={type}
               className='col-span-2'
             >
-              <Radio value="1tav0">1tav0</Radio>
+              <Radio value="donar">Donar</Radio>
               <Radio value="hospital">Hospital</Radio>
               <Radio value="organization">Organization</Radio>
             </Radio.Group>
             
             {
-              type === "1tav0" 
+              type === "donar" 
               && 
               (
                 <>
@@ -53,7 +53,7 @@ const Register = () => {
               ) 
             }
             {
-              type !== "1tav0"
+              type !== "donar"
               &&
               (
                 <OrgHospitalForm type={type} />
