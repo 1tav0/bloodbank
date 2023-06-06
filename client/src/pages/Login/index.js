@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, Radio, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { LoginUser } from '../../apicalls/users';
@@ -23,6 +23,12 @@ const Login = () => {
       return message.error(error.message)
     }
   }
+  useEffect(() => { //if we have a token in the local storage aka logged in then we dont need to show the login page
+    if (localStorage.getItem("token")) {
+      navigate("/")
+    }
+  }, [])
+  
   return (
     <div className='flex h-screen items-center justify-center bg-primary'>
        <Form

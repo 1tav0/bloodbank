@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, Radio, message } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import OrgHospitalForm from './OrgHospitalForm';
 import { RegisterUser } from '../../apicalls/users';
 
 
 const Register = () => {
   const [type, setType] = useState("donar");
-
+  const navigate = useNavigate()
   const onFinish = async (values) => {
     // console.log(values);
     try {
@@ -26,6 +26,11 @@ const Register = () => {
       message.error(error.message)
     }
   }
+  useEffect(() => { //if we have a token in the local storage aka logged in then we dont need to show the login page
+    if (localStorage.getItem("token")) {
+      navigate("/")
+    }
+  }, [])
   return (
     <div className='flex h-screen items-center justify-center bg-primary'>
        <Form
