@@ -6,6 +6,7 @@ require('dotenv').config({ path: '../.env'});
 const dbConfig = require('./config/dbConfig');
 
 //to make use of userRoutes
+app.use(express.json());
 const usersRoute = require("./routes/usersRoute")
 app.use('/api/users', usersRoute)
 
