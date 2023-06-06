@@ -1,13 +1,27 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Radio } from 'antd'
-import { Link } from 'react-router-dom'
+import { Button, Form, Input, Radio, message } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+import { LoginUser } from '../../apicalls/users';
 
 
 const Login = () => {
   const [type, setType] = useState("Donar");
-
-  const onFinish = (values) => {
-    console.log(values);
+  const navigate = useNavigate()
+  const onFinish = async (values) => {
+    // console.log(values);
+    try {
+      const response = await LoginUser(values);
+      if (response.success) {
+        message.success(response.message);
+        //put the token in the response data so we can know its this or that user 
+        localStorage.setItem("token", response.data);
+        navigate('/')
+      } else {
+        throw new Error(response.message)
+      }
+    } catch (error) {
+      return message.error(error.message)
+    }
   }
   return (
     <div className='flex h-screen items-center justify-center bg-primary'>

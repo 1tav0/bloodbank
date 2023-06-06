@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
             })
         }
         //GENERATE TOKEN to send to the frontend 
-        const token = jwt.sign({ userId: user._id }, proccess.env.JWT_KEY, {expiresIn: "1d"})
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, {expiresIn: "1d"})
 
         return res.send({
             success: true,

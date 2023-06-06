@@ -9,7 +9,7 @@ const OrgHospitalForm = ({type}) => (
         >
             <Input />
         </Form.Item>
-        <Form.Item name="1tav0" label="1tav0">
+        <Form.Item name="owner" label="Owner">
             <Input />
         </Form.Item>
         <Form.Item name="email" label="Email">
@@ -22,7 +22,7 @@ const OrgHospitalForm = ({type}) => (
             <Input />
         </Form.Item>
         <Form.Item name="password" label="Password">
-            <Input />
+            <Input type="password" />
         </Form.Item>
         <Form.Item name="address" label="Address" className='col-span-2'>
             <Input />
