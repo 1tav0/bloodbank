@@ -2,6 +2,7 @@ import { message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { GetCurrentUser } from '../apicalls/users'
 import { useNavigate } from 'react-router-dom'
+import { getLoggedInUser } from '../utils/helper'
 //only logged in user can see this information
 //login and register are public so they dont need to be protected page
 //children are the pages
@@ -32,7 +33,7 @@ const ProtectedPage = ({ children }) => {
   return (
       currentUser && (
         <div>
-            <h1>Welcome {currentUser?.name}</h1>
+            <h1>Welcome {getLoggedInUser(currentUser)}</h1>
             {children}
         </div>
       )
