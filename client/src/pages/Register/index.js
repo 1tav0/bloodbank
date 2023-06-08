@@ -3,26 +3,34 @@ import { Button, Form, Input, Radio, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import OrgHospitalForm from './OrgHospitalForm';
 import { RegisterUser } from '../../apicalls/users';
+import { useDispatch } from 'react-redux';
+import { SetLoading } from '../../redux/loadersSlice';
+import { getAndtdInputValidation } from '../../utils/helper';
 
 
 const Register = () => {
   const [type, setType] = useState("donar");
   const navigate = useNavigate()
+  const dispatch = useDispatch()//for loader when we registering
   const onFinish = async (values) => {
     // console.log(values);
     try {
+      dispatch(SetLoading(true))
       const response = await RegisterUser({
         ...values,
         userType: type
       });
-      console.log(response)
+      dispatch(SetLoading(false))
+      // console.log(response)
       if (response.success) {
         message.success(response.message)
+        navigate('/login')
       } else {
         throw new Error(response.message)
         
       }
     } catch (error) {
+      dispatch(SetLoading(false))
       message.error(error.message)
     }
   }
@@ -60,16 +68,16 @@ const Register = () => {
               && 
               (
                 <>
-                  <Form.Item label="Name" name="name">
+                  <Form.Item label="Name" name="name" rules={getAndtdInputValidation()}>
                     <Input />
                   </Form.Item>
-                  <Form.Item label="Email" name="email" >
+                  <Form.Item label="Email" name="email" rules={getAndtdInputValidation()}>
                     <Input />
                   </Form.Item>
-                  <Form.Item label="Phone" name="phone">
+                  <Form.Item label="Phone" name="phone" rules={getAndtdInputValidation()}>
                     <Input />
                   </Form.Item>
-                  <Form.Item label="Password" name="password">
+                  <Form.Item label="Password" name="password" rules={getAndtdInputValidation()}>
                     <Input type="password"/>
                   </Form.Item>
                 </>

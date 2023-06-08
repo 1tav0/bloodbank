@@ -1,10 +1,14 @@
 import { message } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { GetCurrentUser } from '../apicalls/users'
 import { useNavigate } from 'react-router-dom'
-import { getLoggedInUser } from '../utils/helper'
+import { getLoggedInUserName } from '../utils/helper'
 import { useDispatch, useSelector } from 'react-redux'
 import { SetCurrentUser } from '../redux/userSlice'
+import { SetLoading } from '../redux/loadersSlice'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button } from '@mui/material';
 //only logged in user can see this information
 //login and register are public so they dont need to be protected page
 //children are the pages
@@ -15,7 +19,9 @@ const ProtectedPage = ({ children }) => {
     const { currentUser } = useSelector((state) => state.users)// to access the props in the store
     const getCurrentUser = async () => { //get user information
         try {
+            dispatch(SetLoading(true)) //to show the loading bar when we refresh the page
             const response = await GetCurrentUser()
+            dispatch(SetLoading(false))
             if (response.success) {
                 message.success(response.message);
                 // setCurrentUser(response.data) used before redux
@@ -24,6 +30,7 @@ const ProtectedPage = ({ children }) => {
                 throw new Error(response.message)
             }
         } catch (error) {
+            dispatch(SetLoading(false))
             message.error(error.message)
         }
     }
@@ -38,8 +45,29 @@ const ProtectedPage = ({ children }) => {
   return (
       currentUser && (
         <div>
-            <h1>Welcome {getLoggedInUser(currentUser)}</h1>
-            {children}
+            {/* header */}
+            <div className='flex justify-between items-center bg-primary text-white px-5 py-3'>
+                <div>
+                    <h1 className="text-2xl">
+                        BLOODBANK HOSPITAL
+                    </h1>
+                    <span className='text-xs'>{currentUser.userType.toUpperCase()}</span>
+                </div>
+                  <div className='flex items-center gap-1'>
+                    <AdminPanelSettingsIcon />
+                    <div className='flex flex-col'>
+                        <span className='mr-5 text-md cursor-pointer'>{getLoggedInUserName(currentUser).toUpperCase()}</span>
+                    </div>
+                      <LogoutIcon className='ml-5 cursor-pointer'
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            navigate('/login')
+                          }}
+                      />
+                </div>
+            </div>
+            {/* body */}
+            <div className='p-5'>{children}</div>
         </div>
       )
   )

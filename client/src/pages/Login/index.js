@@ -2,15 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, Radio, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { LoginUser } from '../../apicalls/users';
+import { useDispatch } from 'react-redux';
+import { SetLoading } from '../../redux/loadersSlice';
+import { getAndtdInputValidation } from '../../utils/helper';
 
 
 const Login = () => {
   const [type, setType] = useState("Donar");
   const navigate = useNavigate()
+  const dispatch = useDispatch() //for loader from loaderSlice
   const onFinish = async (values) => {
     // console.log(values);
     try {
+      dispatch(SetLoading(true))
       const response = await LoginUser(values);
+      dispatch(SetLoading(false))
       if (response.success) {
         message.success(response.message);
         //put the token in the response data so we can know its this or that user 
@@ -20,6 +26,7 @@ const Login = () => {
         throw new Error(response.message)
       }
     } catch (error) {
+      dispatch(SetLoading(false))
       return message.error(error.message)
     }
   }
@@ -52,10 +59,10 @@ const Login = () => {
               <Radio value="organization">Organization</Radio>
             </Radio.Group>
           
-            <Form.Item label="Email" name="email">
+            <Form.Item label="Email" name="email" rules={getAndtdInputValidation()} >
               <Input />
             </Form.Item>
-            <Form.Item label="Password" name="password">
+            <Form.Item label="Password" name="password" rules={getAndtdInputValidation()}>
               <Input type="password"/>
             </Form.Item>
       
