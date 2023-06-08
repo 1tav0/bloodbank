@@ -51,7 +51,9 @@ const ProtectedPage = ({ children }) => {
                     <h1 className="text-2xl">
                         BLOODBANK HOSPITAL
                     </h1>
-                    <span className='text-xs'>{currentUser.userType.toUpperCase()}</span>
+                    <span className='text-xs' onClick = { () => navigate('/profile')}>
+                        {currentUser.userType.toUpperCase()}
+                    </span>
                 </div>
                   <div className='flex items-center gap-1'>
                     <AdminPanelSettingsIcon />
@@ -67,7 +69,7 @@ const ProtectedPage = ({ children }) => {
                 </div>
             </div>
             {/* body */}
-            <div className='p-5'>{children}</div>
+            <div className='px-5 py-2'>{children}</div>
         </div>
       )
   )
