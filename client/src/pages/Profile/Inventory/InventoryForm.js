@@ -1,22 +1,23 @@
 import { Form, Input, Modal, Radio, message } from 'antd'
 import React, { useState } from 'react'
 import { getAndtdInputValidation } from '../../../utils/helper'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AddInventory } from '../../../apicalls/inventory'
 import { SetLoading } from '../../../redux/loadersSlice'
 
 const InventoryForm = ({ open, setOpen, reloadData }) => {
-    const [invetoryType, setInventoryType] = useState("in")
+    const [inventoryType, setInventoryType] = useState("in")
     const [form] = Form.useForm() // this is for the submit and since we get it when we click the modal is in the form so we attach it there 
     const dispatch = useDispatch()
-
+    const { currentUser } = useSelector( state => state.users)
     const onFinish = async (values) => {
         // console.log(values)
         try {
             dispatch(SetLoading(true))
             const response = await AddInventory({
                 ...values,
-                invetoryType
+                inventoryType,
+                organization: currentUser._id
             })
             dispatch(SetLoading(false))
             if (response.success) {
@@ -48,7 +49,7 @@ const InventoryForm = ({ open, setOpen, reloadData }) => {
         >
             <Form.Item label="Inventory Type">
                 <Radio.Group
-                    value={invetoryType}
+                    value={inventoryType}
                     onChange={(e) => setInventoryType(e.target.value)}
                 >
                     <Radio value="in">In</Radio>    
@@ -68,7 +69,7 @@ const InventoryForm = ({ open, setOpen, reloadData }) => {
                 </select> 
             </Form.Item>  
             <Form.Item
-                label={invetoryType === "out" ? "Hospital Email" : "Donar Email"}
+                label={inventoryType === "out" ? "Hospital Email" : "Donar Email"}
                 name="email"
                 rules={getAndtdInputValidation()}
             >

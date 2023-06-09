@@ -9,8 +9,7 @@ const inventorySchema = new mongoose.Schema(
         },
         bloodGroup: {
             type: String,
-            required: true,
-            enum: ["A+", "A-", "B+", "B-", "AB+", "AB-","O+", "O-"]
+            required: true
         },
         quantity: {
             type: Number,
@@ -31,14 +30,14 @@ const inventorySchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "users",
             required: function () {
-                return this.inventoryTypr === "out"
+                return this.inventoryType === "out"
             }
         },
         donar: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "users",
             required: function () {
-                return this.inventoryTypr === "in"
+                return this.inventoryType === "in"
             }
         }
     }, {
