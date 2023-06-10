@@ -48,6 +48,14 @@ router.post('/login', async (req, res) => {
                 message: "No User with that email exists"
             })
         }
+        //check if userType matches
+        if (user.userType !== req.body.userType) {
+            return res.send({
+                success: false,
+                message: `User is not registered as a ${req.body.userType}`
+            })
+        }
+
         //user exists so we COMPARE passwords
         const validPassword = await bcrypt.compare(req.body.password, user.password)
         if (!validPassword) {

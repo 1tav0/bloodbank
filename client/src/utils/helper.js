@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export const getLoggedInUserName = (user) => {
     if (user.userType === "donar") {
         return user.name;
@@ -13,4 +15,9 @@ export const getAndtdInputValidation = () => {
         required: true,
         message: "Required"
     }]
+}
+
+//to show the date in the profile page date column
+export const getDateFormat = (date) => {
+    return moment(date).format("DD MMM YYYY hh:mm A")
 }

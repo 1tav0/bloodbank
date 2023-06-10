@@ -15,7 +15,10 @@ const Login = () => {
     // console.log(values);
     try {
       dispatch(SetLoading(true))
-      const response = await LoginUser(values);
+      const response = await LoginUser({
+        ...values,
+        userType: type
+      });
       dispatch(SetLoading(false))
       if (response.success) {
         message.success(response.message);

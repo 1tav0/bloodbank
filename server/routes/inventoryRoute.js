@@ -40,4 +40,19 @@ router.post('/add', authMiddleware, async (req, res) => {
     }
 })
 
+router.get('/get', authMiddleware, async (req, res) => {
+    try {
+        const inventory = await Inventory.find({ organization: req.body.userId }).populate("donar").populate("hospital")
+        return res.send({
+            success: true,
+            data: inventory
+        })
+    } catch (error) {
+        return res.send({
+            success: false,
+            message: error.message
+        })
+    }
+})
+
 module.exports = router

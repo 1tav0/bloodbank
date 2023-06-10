@@ -51,14 +51,18 @@ const ProtectedPage = ({ children }) => {
                     <h1 className="text-2xl">
                         BLOODBANK HOSPITAL
                     </h1>
-                    <span className='text-xs' onClick = { () => navigate('/profile')}>
+                    <span className='text-xs'>
                         {currentUser.userType.toUpperCase()}
                     </span>
                 </div>
                   <div className='flex items-center gap-1'>
                     <AdminPanelSettingsIcon />
                     <div className='flex flex-col'>
-                        <span className='mr-5 text-md cursor-pointer'>{getLoggedInUserName(currentUser).toUpperCase()}</span>
+                        <span className='mr-5 text-md cursor-pointer' 
+                            onClick = { () => navigate('/profile')}
+                        >
+                              {getLoggedInUserName(currentUser).toUpperCase()}
+                        </span>
                     </div>
                       <LogoutIcon className='ml-5 cursor-pointer'
                           onClick={() => {
