@@ -19,6 +19,23 @@ router.post('/add', authMiddleware, async (req, res) => {
         }
         //create inventory
         if (req.body.inventoryType === "out") {
+            //check if inventory is available
+            const requestedGroup = req.body.bloodGroup;
+            const requestedQuantity = req.body.quantity;
+            const organization = req.body.userId;
+
+            const totalInputOfRequestedGroup = await Inventory.aggregate(
+                {
+                    $match: {},
+                },
+                {
+                    $group: {
+                        _id: "$bloodGroup",
+                        total: { $sum: "$quantity"}
+                    }
+                }
+            )
+            console.log(totalInOfRequestedGroup);
             req.body.hospital = user._id
         } else {
             req.body.donar = user._id
