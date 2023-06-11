@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Inventory = require('../models/inventoryModal')
 const User = require('../models/userModel')
 const authMiddleware = require('../middlewares/authMiddleware')
-
+const mongoose = require("mongoose")
 //add inventory
 router.post('/add', authMiddleware, async (req, res) => {
     try {
@@ -22,11 +22,16 @@ router.post('/add', authMiddleware, async (req, res) => {
             //check if inventory is available
             const requestedGroup = req.body.bloodGroup;
             const requestedQuantity = req.body.quantity;
-            const organization = req.body.userId;
+            // const organization = req.body.userId; this didnt work so we did the bottom to get input when we add inventoriy in
+            const organization = new mongoose.Types.ObjectId(req.body.userId);
 
-            const totalInputOfRequestedGroup = await Inventory.aggregate(
+            const totalInputOfRequestedGroup = await Inventory.aggregate([
                 {
-                    $match: {},
+                    $match: {
+                        organization,
+                        inventoryType: "in",
+                        bloodGroup: requestedGroup,
+                    },
                 },
                 {
                     $group: {
@@ -34,8 +39,27 @@ router.post('/add', authMiddleware, async (req, res) => {
                         total: { $sum: "$quantity"}
                     }
                 }
-            )
-            console.log(totalInOfRequestedGroup);
+            ])
+            // console.log(totalInOfRequestedGroup);
+            const totalIn = totalInputOfRequestedGroup[0].total || 0;
+
+            const totalOutOfRequestedGroup = await Inventory.aggregate([
+                {
+                    $match: {
+                        organization,
+                        inventoryType: "out",
+                        bloodGroup: requestedGroup
+                    }
+                }, {
+                    $group: {
+                        _id: "$bloodGroup",
+                        total: { $sum: "$quantity" }
+                    }
+                }
+            ])
+
+            const totalOut = totalOutOfRequestedGroup[0].total || 0;
+
             req.body.hospital = user._id
         } else {
             req.body.donar = user._id
