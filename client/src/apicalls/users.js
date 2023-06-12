@@ -14,3 +14,11 @@ export const GetCurrentUser = async (payload) => {
     const response = await axiosInstance("get", "api/users/get-current-user")
     return response
 }
+
+export const GetAllDonarsOfAnOrganization = () => {
+    return axiosInstance("get", "/api/users/get-all-donars")
+}
+
+export const GetAllHospitalsOfAnOrganization = () => {
+    return axiosInstance("get", "/api/users/get-all-hospital")
+}
