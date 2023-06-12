@@ -25,7 +25,7 @@ router.post('/add', authMiddleware, async (req, res) => {
             // const organization = req.body.userId; this didnt work so we did the bottom to get input when we add inventoriy in
             const organization = new mongoose.Types.ObjectId(req.body.userId);
 
-            const totalInputOfRequestedGroup = await Inventory.aggregate([
+            const totalInOfRequestedGroup = await Inventory.aggregate([
                 {
                     $match: {
                         organization,
@@ -41,7 +41,7 @@ router.post('/add', authMiddleware, async (req, res) => {
                 }
             ])
             // console.log(totalInOfRequestedGroup);
-            const totalIn = totalInputOfRequestedGroup[0].total || 0;
+            const totalIn = totalInOfRequestedGroup[0].total || 0;
 
             const totalOutOfRequestedGroup = await Inventory.aggregate([
                 {
@@ -58,7 +58,13 @@ router.post('/add', authMiddleware, async (req, res) => {
                 }
             ])
 
-            const totalOut = totalOutOfRequestedGroup[0].total || 0;
+            const totalOut = totalOutOfRequestedGroup[0]?.total || 0;
+
+            const availableQuantityOfRequestedGroup = totalIn - totalOut;
+
+            if (availableQuantityOfRequestedGroup < requestedQuantity) {
+                throw new Error(`Only ${availableQuantityOfRequestedGroup} units of ${requestedGroup.toUpperCase()} is available`);
+            }
 
             req.body.hospital = user._id
         } else {
@@ -83,7 +89,11 @@ router.post('/add', authMiddleware, async (req, res) => {
 
 router.get('/get', authMiddleware, async (req, res) => {
     try {
-        const inventory = await Inventory.find({ organization: req.body.userId }).populate("donar").populate("hospital")
+        const inventory = await Inventory.find({ organization: req.body.userId })
+                                        .sort({createdAt: -1}) //this sorts the table in the front end from time was created goes top most
+                                        .populate("donar")
+                                        .populate("hospital")
+                                        
         return res.send({
             success: true,
             data: inventory
