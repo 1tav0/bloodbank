@@ -3,6 +3,10 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/userModel')
 const jwt  = require("jsonwebtoken");
 const authMiddleware = require('../middlewares/authMiddleware');
+const Inventory = require("../models/inventoryModal")
+const mongoose = require("mongoose");
+const { unique } = require('joi/lib/types/array');
+
 //register new user
 router.post('/register', async (req, res) => {
     try {
@@ -97,6 +101,48 @@ router.get("/get-current-user", authMiddleware, async (req, res) => {
             message: error.message
         })
 
+    }
+})
+
+//get all unique donors
+router.get("/get-all-donars", authMiddleware, async (req, res) => {
+    try {
+       //get all unique donor ids from inventory
+    //    const uniqueDonorIds = await Inventory.aggregate([
+    //     {
+    //            $match: {
+    //             inventoryType: "in",
+    //             organization: new mongoose.Types.ObjectId(req.body.userId)
+    //         }
+    //     },
+    //     {
+    //         $group: {
+    //             _id: "$donar"
+    //         }
+    //     }
+    //    ]) 
+        const organization = new mongoose.Types.ObjectId(req.body.userId)
+        const uniqueDonorIds = await Inventory.distinct("donar", {
+            organization,
+        })//.find()
+
+        const donars = await User.find({
+            _id: { $in: uniqueDonorIds }
+        })
+
+        console.log(uniqueDonorIds);
+
+        return res.send({
+            success: true,
+            message: "Donors fetched successfully",
+            // data: uniqueDonorIds didnt work properly cuz data wasnt being fetched correctly 
+            data:donars
+        })
+    } catch (error) {
+        return res.send({
+            success: false,
+            message: error.message
+        })
     }
 })
 module.exports = router

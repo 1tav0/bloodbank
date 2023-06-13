@@ -21,7 +21,7 @@ const InventoryForm = ({ open, setOpen, reloadData }) => {
             })
             dispatch(SetLoading(false))
             if (response.success) {
-                reloadData()
+                reloadData()//to reload when we add in to inventory on success
                 message.success("Inventory Added Successfully")
                 setOpen(false)
             } else {

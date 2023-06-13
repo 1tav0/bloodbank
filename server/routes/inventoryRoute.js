@@ -23,7 +23,7 @@ router.post('/add', authMiddleware, async (req, res) => {
             const requestedGroup = req.body.bloodGroup;
             const requestedQuantity = req.body.quantity;
             // const organization = req.body.userId; this didnt work so we did the bottom to get input when we add inventoriy in
-            const organization = new mongoose.Types.ObjectId(req.body.userId);
+            const organization = new mongoose.Types.ObjectId(req.body.userId); //convert from objectID in db to userId
 
             const totalInOfRequestedGroup = await Inventory.aggregate([
                 {
