@@ -130,7 +130,7 @@ router.get("/get-all-donars", authMiddleware, async (req, res) => {
             _id: { $in: uniqueDonorIds }
         })
 
-        console.log(uniqueDonorIds);
+        // console.log(uniqueDonorIds);
 
         return res.send({
             success: true,
@@ -142,6 +142,30 @@ router.get("/get-all-donars", authMiddleware, async (req, res) => {
         return res.send({
             success: false,
             message: error.message
+        })
+    }
+})
+
+router.get("/get-all-hospitals", authMiddleware, async (req, res) => {
+    try {
+        const organization = new mongoose.Types.ObjectId(req.body.userId);
+        const uniqueHospitals = await Inventory.distinct("hospital", {
+            organization
+        })
+
+        const hospitals = await User.find({
+            _id: { $in: uniqueHospitals }
+        })
+
+        return res.send({
+            success: true,
+            message: "Hospitals fetched successfully",
+            data: hospitals
+        })
+    } catch (error) {
+        return res.send({
+            success: false,
+            message: error.message,
         })
     }
 })
