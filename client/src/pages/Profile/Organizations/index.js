@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { SetLoading } from '../../../redux/loadersSlice';
-import { GetAllOrganizationsOfADonar } from '../../../apicalls/users';
+import { GetAllOrganizationsOfADonar, GetAllOrganizationsOfAHospital } from '../../../apicalls/users';
 import { Table, message } from 'antd';
 import { getDateFormat } from '../../../utils/helper';
 
-const Organizations = () => {
+const Organizations = ({userType}) => {
     const [data, setData] = useState([]);
     const dispatch = useDispatch();
 
     const getData = async () => {
         try {
             dispatch(SetLoading(true));
-            const response = await GetAllOrganizationsOfADonar();
+            const response = await userType === "donar" ? GetAllOrganizationsOfADonar() : GetAllOrganizationsOfAHospital();
             dispatch(SetLoading(false));
             if (response.success) {
                 setData(response.data);

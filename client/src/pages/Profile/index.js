@@ -36,6 +36,17 @@ const Profile = () => {
                     </Tabs.TabPane>
                   </>
             )}
+            {
+                currentUser.userType === "donar" && (
+                  <>
+                    <Tabs.TabPane tab="Consumption" key="1">
+                        
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="Organizations" key="2">
+                        <Organizations userType="hospital"/>
+                    </Tabs.TabPane>
+                  </>
+            )}
         </Tabs>
     </div>
   )
