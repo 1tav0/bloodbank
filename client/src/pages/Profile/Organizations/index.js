@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { SetLoading } from '../../../redux/loadersSlice';
-import { GetAllDonarsOfAnOrganization } from '../../../apicalls/users';
+import { GetAllOrganizationsOfADonar } from '../../../apicalls/users';
 import { Table, message } from 'antd';
 import { getDateFormat } from '../../../utils/helper';
 
@@ -12,7 +12,7 @@ const Organizations = () => {
     const getData = async () => {
         try {
             dispatch(SetLoading(true));
-            const response = await GetAllDonarsOfAnOrganization();
+            const response = await GetAllOrganizationsOfADonar();
             dispatch(SetLoading(false));
             if (response.success) {
                 setData(response.data);

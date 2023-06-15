@@ -178,14 +178,14 @@ router.get("/get-all-organizations-of-a-donar", authMiddleware, async (req, res)
             donar
         })
 
-        const organization = await user.find({
+        const hospitals = await User.find({
             _id: { $in: uniqueOrganizationIds }
         })
 
         return res.send({
             success: true,
-            message: "Organizations fetched successfully",
-            data: organization
+            message: "Hospitals fetched successfully",
+            data: hospitals
         })
     } catch (error) {
         return res.send({
