@@ -21,7 +21,7 @@ const inventorySchema = new mongoose.Schema(
         },
         organization: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "organizations",
+            ref: "users",
             required: true
         },
         //if inventoryType is "out" then hospital will be set
