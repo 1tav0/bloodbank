@@ -12,7 +12,13 @@ const Organizations = ({userType}) => {
     const getData = async () => {
         try {
             dispatch(SetLoading(true));
-            const response = await userType === "donar" ? GetAllOrganizationsOfADonar() : GetAllOrganizationsOfAHospital();
+            let response = null;
+            if (userType === "hospital") {
+                response = await GetAllOrganizationsOfAHospital();
+            } else {
+                response = await GetAllOrganizationsOfADonar();
+            }
+            
             dispatch(SetLoading(false));
             if (response.success) {
                 setData(response.data);
