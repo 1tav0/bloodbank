@@ -42,7 +42,9 @@ const inventorySchema = new mongoose.Schema(
         }
     }, {
         timestamps: true
-    }
+}
+    //need to fix an error 
+    
 )
 
 const Inventory = mongoose.model("inventories", inventorySchema);
