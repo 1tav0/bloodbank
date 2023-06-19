@@ -48,6 +48,11 @@ const Donars = () => {
             dataIndex: "createdAt",
             render: (text) => getDateFormat(text)
 
+        },{
+            title: "Created At",
+            dataIndex: "createdAt",
+            render: (text) => getDateFormat(text)
+
         }
     ]
 
