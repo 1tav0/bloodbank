@@ -41,7 +41,7 @@ const InventoryTable = ({filters, userType}) => {
       dispatch(SetLoading(true))
       const response = await GetInventoryWithFilters(filters)
       dispatch(SetLoading(false))
-      console.log(response)
+      // console.log(response)
       if (response.success) {
         setData(response.data)
       } else {

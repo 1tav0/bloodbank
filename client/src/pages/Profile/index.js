@@ -9,7 +9,7 @@ import InventoryTable from '../../components/InventoryTable'
 
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.users)
-  console.log(currentUser)
+  // console.log(currentUser)
   return (
     <div>
         <Tabs>
@@ -40,7 +40,7 @@ const Profile = () => {
                         />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Organizations" key="5">
-                        <Organizations />
+                        <Organizations userType="donar" />
                     </Tabs.TabPane>
                   </>
             )}
