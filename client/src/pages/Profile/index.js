@@ -8,7 +8,8 @@ import Organizations from './Organizations'
 import InventoryTable from '../../components/InventoryTable'
 
 const Profile = () => {
-    const { currentUser } = useSelector((state) => state.users)
+  const { currentUser } = useSelector((state) => state.users)
+  console.log(currentUser)
   return (
     <div>
         <Tabs>
@@ -43,7 +44,7 @@ const Profile = () => {
                     <Tabs.TabPane tab="Consumption" key="6">
                         <InventoryTable 
                             filters={{
-                              invetoryType: "out",
+                              inventoryType: "out",
                               hospital: currentUser._id
                           }}
                           userType="hospital"

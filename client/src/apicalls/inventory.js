@@ -5,9 +5,10 @@ export const AddInventory = (data) => {
 }
 
 export const GetInventory = () => {
-    return axiosInstance("get", "api/inventory/get")
+    return axiosInstance("get", "/api/inventory/get")
 }
 
 export const GetInventoryWithFilters = (data) => {
+    // console.log(data)
     return axiosInstance("post", "/api/inventory/filter", {filters: data});
 }

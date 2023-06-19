@@ -6,7 +6,6 @@ import { SetLoading } from '../redux/loadersSlice'
 import { Table, message } from 'antd'
 
 const InventoryTable = ({filters, userType}) => {
-    const [open, setOpen] = React.useState(false)
   const [data, setData] = useState([])
   const dispatch = useDispatch()
   const columns = [
@@ -42,6 +41,7 @@ const InventoryTable = ({filters, userType}) => {
       dispatch(SetLoading(true))
       const response = await GetInventoryWithFilters(filters)
       dispatch(SetLoading(false))
+      console.log(response)
       if (response.success) {
         setData(response.data)
       } else {
