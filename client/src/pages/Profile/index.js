@@ -31,7 +31,13 @@ const Profile = () => {
                 currentUser.userType === "donar" && (
                   <>
                     <Tabs.TabPane tab="Donations" key="4">
-                        
+                        <InventoryTable 
+                            filters={{
+                              inventoryType: "in",
+                              donar: currentUser._id
+                            }}
+                            userType="donar"
+                        />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Organizations" key="5">
                         <Organizations />
