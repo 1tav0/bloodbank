@@ -27,7 +27,13 @@ const InventoryTable = ({filters, userType, limit}) => {
     {
       title: "Reference",
       dataIndex: "reference",
-      render: (text, record) => record.organization.organizationName
+      render: (text, record) => {
+        if (userType === "organization") {
+          return record.inventoryType === "in" ? record.donar?.name : record.hospital?.hospitalName
+        } else {
+          return record.organization.organizationName
+        }
+      }
     },
     {
       title: "Date",
@@ -35,6 +41,18 @@ const InventoryTable = ({filters, userType, limit}) => {
       render: (text) => getDateFormat(text)
     },
   ]
+
+  //change columns for hospital & onar
+  if (userType !== "organization") {
+    //remove inventory type column
+    columns.splice(0, 1);
+    //chnage reference column to organization name
+    columns[2].title = "Organization Name";
+    //date column should be renamed to taken date
+    columns[3].title = userType === "hospital" ? "Consumed On" : "Donated Date";
+  }
+
+
 
   const getData = async () => {
     try {
