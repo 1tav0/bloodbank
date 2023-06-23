@@ -5,7 +5,7 @@ import { getDateFormat } from '../utils/helper'
 import { SetLoading } from '../redux/loadersSlice'
 import { Table, message } from 'antd'
 
-const InventoryTable = ({filters, userType}) => {
+const InventoryTable = ({filters, userType, limit}) => {
   const [data, setData] = useState([])
   const dispatch = useDispatch()
   const columns = [
@@ -39,7 +39,7 @@ const InventoryTable = ({filters, userType}) => {
   const getData = async () => {
     try {
       dispatch(SetLoading(true))
-      const response = await GetInventoryWithFilters(filters)
+      const response = await GetInventoryWithFilters(filters, limit)
       dispatch(SetLoading(false))
       // console.log(response)
       if (response.success) {

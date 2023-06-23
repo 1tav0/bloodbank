@@ -110,7 +110,7 @@ router.get('/get', authMiddleware, async (req, res) => {
 router.post('/filter', authMiddleware, async (req, res) => {
     try {
         // console.log(req.body.filters);
-        const inventory = await Inventory.find(req.body.filters)
+        const inventory = await Inventory.find(req.body.filters).limit(req.body.limit || 10)
                                         .sort({createdAt: -1}) //this sorts the table in the front end from time was created goes top most
                                         .populate("donar")
                                         .populate("hospital")
